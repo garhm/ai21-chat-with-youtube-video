@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IMessage } from './core/models/message.interface';
 import { MessageTypeEnum } from './core/models/message-type.enum';
+import { environment }  from '../environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -8,30 +9,28 @@ import { MessageTypeEnum } from './core/models/message-type.enum';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  videoId = '';
+  videoUrl = '';
   isLoading: boolean = false;
   question = '';
-  messages: IMessage[] = [{
-    type: MessageTypeEnum.user,
-    text: 'What is it about?'
-  },
-    { type: MessageTypeEnum.agent, text: 'It is about a dog' }]
-
+  messages: IMessage[] = [];
+  apiUrl = environment.api;
   async askWithVideoContext() {
     this.isLoading = true;
-    if (!this.videoId) {
+    if (!this.videoUrl || !this.question) {
       alert('Please enter a video ID');
       return;
     }
+    const videoId = this.videoUrl.split('v=')[1];
     this.messages.push(
       {
         type: MessageTypeEnum.user,
         text: this.question
       }
     );
+    this.question = '';
     try {
       const response = await fetch(
-        `http://localhost:3000/ask?videoId=${this.videoId}&question=${this.question}`
+        `${this.apiUrl}/ask?videoId=${videoId}&question=${this.question}`
       );
       const answer = await response.text();
       this.messages.push(

@@ -3,4 +3,10 @@
     <app-message [message]="message">
     </app-message>
   </div>
+  <div *ngIf=isTyping
+       class="typing">
+    <div class="typing__dot"></div>
+    <div class="typing__dot"></div>
+    <div class="typing__dot"></div>
+  </div>
 </div>

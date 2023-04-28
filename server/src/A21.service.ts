@@ -3,7 +3,7 @@ import axios, { AxiosResponse, Method } from 'axios';
 
 @Injectable()
 export class A21Service {
-    private readonly baseUrl = 'https://api.ai21.com/studio/v1/experimental/';
+    private readonly baseUrl = 'https://api.ai21.com/studio/v1/';
 
     async makeRequest(
         method: Method,

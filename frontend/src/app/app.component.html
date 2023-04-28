@@ -1,28 +1,39 @@
 <div style="text-align:center">
-  <h3>YouTube AI Assistant</h3>
+  <h3>TubeChat</h3>
   <div class="p-card p-4 main-block">
     <div class="formgrid grid">
       <div class="field col-12 flex justify-content-start flex-column align-items-baseline">
-        <label for="videoId" class="text-align-left">Video ID</label>
-        <div>
-          <input id="videoId" pInputText [(ngModel)]="videoId" type="text"/>
+        <label for="videoId" class="text-align-left">Video URL</label>
+        <div class="col-8">
+          <input id="videoId"
+                 class="w-full"
+                 pInputText
+                 [(ngModel)]="videoUrl"
+                 type="text"/>
         </div>
       </div>
       <app-chat class="mt-2 mb-2"
+                [isTyping]="isLoading"
                 [messages]="messages">
       </app-chat>
       <div class="field col-12 flex justify-content-start">
-      <div>
-        <input id="apiKey" pInputText [(ngModel)]="question" class="mr-2"/>
+        <div class="col-8">
+          <input id="question"
+               pInputText
+               (keydown.enter)="askWithVideoContext()"
+               [(ngModel)]="question"
+               class="mr-2 w-full"/>
+        </div>
+        <div class="col-2">
         <button pButton
                 type="submit"
                 (click)="askWithVideoContext()"
-                [disabled]="!videoId"
+                [disabled]="!videoUrl"
                 label="Ask"
                 icon="pi pi-send"
                 [loading]="isLoading"></button>
+        </div>
       </div>
-    </div>
     </div>
   </div>
 </div>

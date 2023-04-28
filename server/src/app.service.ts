@@ -33,10 +33,25 @@ export class AppService {
   }
 
   async askWithVideoContext(videoId: string, question: string) {
-    const context = await this.getTranscript(videoId);
-    console.log(context);
-    console.log(context.length);
-    const response = await this.a21Service.makeRequest('post', 'answer', this.configService.get('A21_API_KEY'), {context, question: question})
-    return response.data.answer
+    let context = await this.getTranscript(videoId);
+    if (context.length > 15000) {
+      let summaries: string = '';
+      let segmentResponse: any;
+      segmentResponse = await this.a21Service.makeRequest('post', 'segmentation', this.configService.get('A21_API_KEY'), {
+        source: context,
+        sourceType: 'TEXT'
+      });
+      for (const segment of segmentResponse.data.segments) {
+        if (segment.segmentText.length > 500) {
+        const resp = await this.a21Service.makeRequest('post', 'summarize', this.configService.get('A21_API_KEY'), {source: segment.segmentText, sourceType: 'TEXT'});
+        summaries += resp.data.text;
+        } else {
+          summaries += segment.segmentText;
+        }
+      }
+      context = summaries;
+    }
+      const response = await this.a21Service.makeRequest('post', 'experimental/answer', this.configService.get('A21_API_KEY'), {context, question: question})
+      return response.data.answer
   }
 }

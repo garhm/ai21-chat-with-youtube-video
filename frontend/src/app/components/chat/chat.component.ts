@@ -8,4 +8,5 @@ import {IMessage} from "../../core/models/message.interface";
 })
 export class ChatComponent {
  @Input() messages: IMessage[] = [];
+ @Input() isTyping: boolean = false;
 }
