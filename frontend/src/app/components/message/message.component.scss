@@ -1,0 +1,23 @@
+.c-message {
+  padding: 12px;
+  border-radius: 8px;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  text-align: left;
+  &.user-message {
+    background-color: var(--primary-color);
+    color: var(--surface-a)
+  }
+}
+
+.icon-holder {
+  background-color: var(--surface-b);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 12px;
+}

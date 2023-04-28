@@ -1,0 +1,11 @@
+<div class="flex">
+  <div class="icon-holder">
+    <span class="pi pi-user"
+    [class.pi-user]="message.type === messageTypes.user"
+    [class.pi-prime]="message.type === messageTypes.agent"></span>
+  </div>
+  <div class="c-message"
+     [class.user-message]="message.type === messageTypes.user">
+  {{ message.text }}
+</div>
+</div>

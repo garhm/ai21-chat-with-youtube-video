@@ -1,0 +1,28 @@
+<div style="text-align:center">
+  <h3>YouTube AI Assistant</h3>
+  <div class="p-card p-4 main-block">
+    <div class="formgrid grid">
+      <div class="field col-12 flex justify-content-start flex-column align-items-baseline">
+        <label for="videoId" class="text-align-left">Video ID</label>
+        <div>
+          <input id="videoId" pInputText [(ngModel)]="videoId" type="text"/>
+        </div>
+      </div>
+      <app-chat class="mt-2 mb-2"
+                [messages]="messages">
+      </app-chat>
+      <div class="field col-12 flex justify-content-start">
+      <div>
+        <input id="apiKey" pInputText [(ngModel)]="question" class="mr-2"/>
+        <button pButton
+                type="submit"
+                (click)="askWithVideoContext()"
+                [disabled]="!videoId"
+                label="Ask"
+                icon="pi pi-send"
+                [loading]="isLoading"></button>
+      </div>
+    </div>
+    </div>
+  </div>
+</div>
